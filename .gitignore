@@ -3,6 +3,11 @@
 # C extensions
 *.so
 
+*~
+*.dSYM
+*_temp.cpp
+*.html
+
 # Packages
 *.egg
 *.egg-info
