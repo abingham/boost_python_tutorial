@@ -71,7 +71,11 @@ class BoostPythonMagics(ipym.Magics):
     @ipym.cell_magic
     def bp_module(self, line, cell=None):
         """Compile a boost.python module."""
-        module_name = line
+        args = line.split()
+        module_name = args[0]
+
+        args = args[1:]
+        debug = 'debug' in args
 
         # Define the source and executable filenames.
         source_filename = '{}_temp.cpp'.format(module_name)
@@ -81,6 +85,8 @@ class BoostPythonMagics(ipym.Magics):
         with open(source_filename, 'w') as f:
             f.write(cell)
 
+        rslt = []
+
         # Compile the C++ code into a shared library.
         cmd = "g++ {} {} {} {} -shared {} -o {}".format(
             PYTHON_COMPILE_FLAGS,
@@ -89,10 +95,15 @@ class BoostPythonMagics(ipym.Magics):
             BP_LINK_FLAGS,
             source_filename,
             lib_filename)
+        if debug:
+            rslt.append(cmd)
+
         compile = self.shell.getoutput(cmd)
 
+        rslt.append(str(compile))
+
         # Execute the executable and return the output.
-        return compile
+        return '\n'.join(rslt)
 
     @ipym.cell_magic
     def snippet(self, line, cell=None):
