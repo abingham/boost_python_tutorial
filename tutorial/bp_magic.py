@@ -95,7 +95,7 @@ class BoostPythonMagics(ipym.Magics):
         return compile
 
     @ipym.cell_magic
-    def ignore(self, line, cell=None):
+    def snippet(self, line, cell=None):
         "Ignore this code cell."
         return ''
 
