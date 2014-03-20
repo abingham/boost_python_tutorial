@@ -47,7 +47,11 @@ class BoostPythonMagics(ipym.Magics):
     def bp_program(self, line, cell=None):
         """Compile, execute C++ code, and return the standard output."""
 
-        name = line
+        args = line.split()
+        name = args[0]
+
+        args = args[1:]
+        debug = 'debug' in args
 
         # Define the source and executable filenames.
         source_filename = '{}.cpp'.format(name)
@@ -55,6 +59,9 @@ class BoostPythonMagics(ipym.Magics):
         # Write the code contained in the cell to the C++ file.
         with open(source_filename, 'w') as f:
             f.write(cell)
+
+        rslt = []
+
         # Compile the C++ code into an executable.
         cmd = "g++ {} {} {} {} {} -o {}".format(
             BP_COMPILE_FLAGS,
@@ -63,10 +70,18 @@ class BoostPythonMagics(ipym.Magics):
             PYTHON_LINK_FLAGS,
             source_filename,
             program_filename)
+
+        if debug:
+            rslt.append(cmd)
+
         compile = self.shell.getoutput(cmd)
-        # Execute the executable and return the output.
+        rslt.append(compile)
+
         output = self.shell.getoutput(program_filename)
-        return output
+        rslt.append(output)
+
+        if any(result):
+            return '\n'.join(map(str, result))
 
     @ipym.cell_magic
     def bp_module(self, line, cell=None):
@@ -95,20 +110,23 @@ class BoostPythonMagics(ipym.Magics):
             BP_LINK_FLAGS,
             source_filename,
             lib_filename)
+
         if debug:
             rslt.append(cmd)
 
+        # run the compiler
         compile = self.shell.getoutput(cmd)
 
-        rslt.append(str(compile))
+        rslt.append(compile)
 
-        # Execute the executable and return the output.
-        return '\n'.join(rslt)
+        # If we have no output to report, return None
+        if any(rslt):
+            return '\n'.join(map(str, rslt))
 
     @ipym.cell_magic
     def snippet(self, line, cell=None):
         "Ignore this code cell."
-        return ''
+        pass
 
 def load_ipython_extension(ipython):
     ipython.register_magics(BoostPythonMagics)
