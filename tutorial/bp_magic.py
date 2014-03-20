@@ -94,5 +94,10 @@ class BoostPythonMagics(ipym.Magics):
         # Execute the executable and return the output.
         return compile
 
+    @ipym.cell_magic
+    def ignore(self, line, cell=None):
+        "Ignore this code cell."
+        return ''
+
 def load_ipython_extension(ipython):
     ipython.register_magics(BoostPythonMagics)
