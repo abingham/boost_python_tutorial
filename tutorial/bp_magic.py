@@ -60,7 +60,7 @@ class BoostPythonMagics(ipym.Magics):
         with open(source_filename, 'w') as f:
             f.write(cell)
 
-        rslt = []
+        result = []
 
         # Compile the C++ code into an executable.
         cmd = "g++ {} {} {} {} {} -o {}".format(
@@ -72,16 +72,16 @@ class BoostPythonMagics(ipym.Magics):
             program_filename)
 
         if debug:
-            rslt.append(cmd)
+            result.append(cmd)
 
         compile = self.shell.getoutput(cmd)
-        rslt.append(compile)
+        result.append(compile)
 
         output = self.shell.getoutput(program_filename)
-        rslt.append(output)
+        result.append(output)
 
         if any(result):
-            return '\n'.join(map(str, result))
+            return ' -- '.join(map(str, filter(None, result)))
 
     @ipym.cell_magic
     def bp_module(self, line, cell=None):
@@ -100,7 +100,7 @@ class BoostPythonMagics(ipym.Magics):
         with open(source_filename, 'w') as f:
             f.write(cell)
 
-        rslt = []
+        result = []
 
         # Compile the C++ code into a shared library.
         cmd = "g++ {} {} {} {} -shared {} -o {}".format(
@@ -112,16 +112,16 @@ class BoostPythonMagics(ipym.Magics):
             lib_filename)
 
         if debug:
-            rslt.append(cmd)
+            result.append(cmd)
 
         # run the compiler
         compile = self.shell.getoutput(cmd)
 
-        rslt.append(compile)
+        result.append(compile)
 
         # If we have no output to report, return None
-        if any(rslt):
-            return '\n'.join(map(str, rslt))
+        if any(result):
+            return ' -- '.join(map(str, filter(None, result)))
 
     @ipym.cell_magic
     def snippet(self, line, cell=None):
