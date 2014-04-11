@@ -32,6 +32,12 @@ The second intended way to use this notebook is as a slide deck. This relies on 
 ipython nbconvert Boost.Python.ipynb --to slides --post serve
 ```
 
+or, if you want to do some customization, edit `slide_config.py` and/or `slides_template.tpl` and run:
+
+```
+ipython nbconvert Boost.Python.ipynb --config slide_config.py --to slides --post serve
+```
+
 This will generate the slides (using [reveal.js](http://lab.hakim.se/reveal-js/#/)) and then try to open a new browser tab with the slides.
 
 The `bp_magic.py` extension
