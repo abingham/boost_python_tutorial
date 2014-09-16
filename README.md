@@ -14,6 +14,10 @@ This notebook introduces the main features of Boost.Python, a C++ library for in
 
 This notebook is a bit of an experiment, and is intended to serve two related purposes. First, it is used as the source for a set of "slides" for presentations. Second, it is a takeaway document for people who attend that presentation. The IPython notebook format straddles these two roles - presentation materials and study material - reasonably well, and it has the interesting benefit of supporting embedded executable code.
 
+There are actually different presentations here, the one in the `presentation` directory and one in `workshop`. The `presentation` notebook is a pure presentation/lecture. It is not intended for interaction with the audience. In other words, it's a talk.
+
+The `workshop` notebook covers the same material as `presentation`, but it is intended for use in a workshop where students work along with the presenter. It has various "Try it" sections and so forth. Besides these differences, they're both very similar. They should probably be combined at some point.
+
 Using this notebook
 -------------------
 
