@@ -23,6 +23,14 @@ Using this notebook
 
 To do anything with this, you'll need to first install [IPython](http://ipython.org/).
 
+```
+% brew install python3
+% brew install boost 
+% brew install boost-python --with-python3
+% python3 -m pip install ipython 
+% python3 -m pip install pyzmq jinja2 tornado
+```
+
 The first way to view this notebook is using the standard `ipython notebook` command. To do this, just run that command from the `tutorial` directory:
 
 ```
