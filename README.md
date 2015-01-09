@@ -21,7 +21,7 @@ The `workshop` notebook covers the same material as `presentation`, but it is in
 Using this notebook
 -------------------
 
-To do anything with this, you'll need to first install [IPython](http://ipython.org/).
+To do anything with this, you'll need to [first install](https://github.com/abingham/boost_python_tutorial/wiki/Installation) [IPython](http://ipython.org/).
 
 The first way to view this notebook is using the standard `ipython notebook` command. To do this, just run that command from the `tutorial` directory:
 
